@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+	{% block javascripts %}
+		<script src="{{ asset('js/file-modal.js') }}"></script>
+	{% endblock %}
+
+	<div class="example-wrapper">
+		<h1>Tableau de bord</h1>
+		<p>Bonjour M.
+			{{ app.user.lastName }}! ✅</p>
+		<section>
+			<h2>Ma situation</h2>
+			<div>
+				<h3>Mes notifications</h3>
+			</div>
+			<div>
+				<h3>Mes démarches en cours</h3>
+				<ul>
+					{% for request in usersRequests %}
+						{%set iconPath ={
+						'accepted': 'images/svg/sphere-verte.svg',
+        				'in_progress': 'images/svg/sphere-orange.svg',
+						'recieved': 'images/svg/sphere-orange.svg',
+       					'rejected': 'images/svg/sphere-rouge.svg'
+					}[request.status]%}
+						<li>
+							<div>
+								<div class="button-container">
+									<p>
+										M.
+										{{request.userRequest.lastName}}
+										-
+										{{request.message}}:
+										{{request.status}}
+
+									</p>
+									<img src="{{ asset(iconPath)}}" alt="{{request.status}}">
+									<button data-file-type='proof' data-filename="{{request.proof}}" onclick="openModal(this)">Voir la facture</button>
+									<button data-file-type='prescription' data-filename="{{request.prescription}}" onclick="openModal(this)">Voir la prescription</button>
+
+									<button type="button" data-requestid="{{request.id}}" data-action="accept" onclick="handleClick(this)">Accepter le remboursement</button>
+									<button type="button" data-requestid="{{request.id}}" data-action="reject" onclick="handleClick(this)">Refuser</button>
+									<button type="button" data-requestid="{{request.id}}" data-action="delete" onclick="handleClick(this)">Supprimer</button>
+
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+					{%include '/partials/file-modal.html.twig'%}
+				</ul>
+				<form id="advisor-request-form" method="POST" action="/handle-advisor-request-action" onsubmit="return handleSubmit(event)">
+					<input type="hidden" name="_csrf_token" value=" {{ csrf_token('handle_request') }} ">
+					<input type="hidden" id="input-id" name="request_id" value="">
+					<input type="hidden" id="actionField" name="action" value="">
+				</form>
+
+
+			</div>
+			<div>
+				<h3>Mes messages</h3>
+				{# boite de réception #}
+
+			</div>
+			<div>
+				<h3>contacter mon conseiller</h3>
+				{# numéro #}
+				{# email #}
+			</div>
+		</section>
+		<a href="">Mes informations personnelles</a>
+
+
+	</div>
+{% endblock %}
