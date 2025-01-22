@@ -21,6 +21,7 @@ function handleClick(button) {
     const form = document.getElementById("advisor-request-form");
     form.querySelector("#input-id").value = requestId;
     form.querySelector("#actionField").value = action;
+    // console.log("ok");
 
     form.submit();
 }

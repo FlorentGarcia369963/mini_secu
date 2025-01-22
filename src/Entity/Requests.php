@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: RequestsRepository::class)]
 class Requests
 {
@@ -26,6 +27,25 @@ class Requests
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,  nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
     #[ORM\ManyToOne(inversedBy: 'requests', targetEntity: User::class,)]
     #[ORM\JoinColumn(nullable: false, name:'user_request_id', referencedColumnName:'id')]
@@ -95,6 +115,13 @@ class Requests
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    
 
    
 }

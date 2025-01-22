@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+{% block body %}
+	{% block javascripts %}
+		<script src="{{ asset('js/file-modal.js') }}"></script>
+	{% endblock %}
+
+	<div>
+		<h1 class="w-100 text-center mt-2">Tableau de bord</h1>
+		<p class="text-end m-5">Bonjour M.
+			{{ app.user.lastName }}!</p>
+		<section class="border border-primary rounded-3 m-5 p-2">
+			{% if is_granted('ROLE_USER') and app.user.roles|length == 1 %}
+				<h2 class="m-2">Ma situation</h2>
+				<div>
+					<h3 class="w-100 text-center">Mes démarches en cours</h3>
+				{% elseif is_granted('ROLE_ADVISOR') or is_granted('ROLE_VALIDATOR')%}
+					<h2 class="m-2">Mes Dossiers</h2>
+					<div>
+					{% endif %}
+					<ul class="m-5">
+						{% for request in userRequests %}
+							{%set iconPath ={
+						'accepted': 'images/svg/sphere-verte.svg',
+        				'in_progress': 'images/svg/sphere-orange.svg',
+						'recieved': 'images/svg/sphere-orange.svg',
+       					'rejected': 'images/svg/sphere-rouge.svg'
+					}[request.status]%}
+							<li>
+								<div class="d-flex align-items-center gap-2">
+									<p class="m-0 fs-5">
+										Demande de M.
+										{{request.userRequest.lastName}}
+										en date du
+										{{request.createdAt|date('d-m-Y H')}}h:
+
+									</p>
+									<button class="btn btn-md btn-light" data-file-type='proof' data-filename="{{request.proof}}" onclick="openModal(this)">Voir la facture</button>
+									<button class="btn btn-md btn-light" data-file-type='prescription' data-filename="{{request.prescription}}" onclick="openModal(this)">Voir la prescription</button>
+									{% if is_granted('ROLE_ADVISOR') %}
+										{% include 'dashboard/partials/advisor.html.twig'  %}
+									{% elseif is_granted('ROLE_VALIDATOR') %}
+										{% include 'dashboard/partials/validator.html.twig'  %}
+									{% endif  %}
+								</div>
+								<div class="d-flex align-items-center gap-3 m-2">
+									<p class="m-0 fs-5">{{request.status}}</p>
+									<img src="{{ asset(iconPath)}}" alt="{{request.status}}">
+								</div>
+								<p>{{request.message}}</p>
+							</li>
+							<hr class="line">
+						{% endfor %}
+						{%include '/partials/file-modal.html.twig'%}
+					</ul>
+					{% if is_granted('ROLE_ADVISOR') or is_granted('ROLE_VALIDATOR')  %}
+						<form id="advisor-request-form" method="POST" action="/handle-advisor-request-action" onsubmit="return handleSubmit(event)">
+							<input type="hidden" name="_csrf_token" value=" {{ csrf_token('handle_request') }} ">
+							<input type="hidden" id="input-id" name="request_id" value="">
+							<input type="hidden" id="actionField" name="action" value="">
+						</form>
+					{% endif %}
+
+
+				</div>
+				{# <div>
+																																																																																																																																																																																																																																																																				<h3>Mes messages</h3>
+																																																																																																																																																																																																																																																																				
+																																																																																																																																																																																																																																																																	
+																																																																																																																																																																																																																																																																			</div>
+																																																																																																																																																																																																																																																																			<div>
+																																																																																																																																																																																																																																																																				<h3>contacter mon conseiller</h3>
+																																																																																																																																																																																																																																																																			
+																																																																																																																																																																																																																																																																			</div> #}
+			</section>
+			{# <a href="#">Mes informations personnelles</a> #}
+
+
+		</div>
+	{% endblock %}

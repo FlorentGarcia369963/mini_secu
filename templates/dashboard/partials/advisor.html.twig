@@ -1,0 +1,5 @@
+{% if request.status == 'recieved'%}
+	<button class="btn btn-md btn-light" type="button" data-requestid="{{request.id}}" data-action="transfer" onclick="handleClick(this)">Transférer au service de contrôle</button>
+	<button class="btn btn-md btn-light" type="button" data-requestid="{{request.id}}" data-action="reject" onclick="handleClick(this)">Refuser</button>
+	<button class="btn btn-md btn-light" type="button" data-requestid="{{request.id}}" data-action="delete" onclick="handleClick(this)">Supprimer</button>
+{% endif %}

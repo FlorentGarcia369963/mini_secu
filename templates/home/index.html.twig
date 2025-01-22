@@ -4,31 +4,45 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
 
-	<div class="example-wrapper">
-		<h1>Salut
-			{{ nom }}! ✅</h1>
+	<div class="bg-secondary-subtle py-2 px-1">
+		<h1 class="text-center  bg-secondary-subtle mt-3 mb-5 w-75 mx-auto">Bienvenue sur Social Secu, votre assurance santé</h1>
 
-		This friendly message is coming from:
-		<ul>
-			<li>Your controller at
-				<code>/var/www/html/projet symfony/social_secu/src/Controller/HomeController.php</code>
-			</li>
-			<li>Your template at
-				<code>/var/www/html/projet symfony/social_secu/templates/home/index.html.twig</code>
-			</li>
-		</ul>
+		<div class="w-75 m-auto position-relative">
+			<img src="images/webp/home.webp" alt="" class="w-100 m-auto rounded rounded-3 box-shadow">
+			<div class="position-absolute top-50 start-50 translate-middle w-100">
+				<p class="text-center text-light fs-1 text-shadow">
+					Respirez,</p>
+				<p class="text-center text-light fs-1 text-shadow">vous êtes assurés</p>
+			</div>
+		</div>
+
+		<section class="w-75 mx-auto my-3">
+			<h2>Présentation</h2>
+			<p>Social Sécu est une application web fictive permettant à un utilisateur de transmettre ses factures de soin en vue d'un remboursement.
+			</p>
+			<p class="text-center fs-5">Inscrivez vous, connectez vous, soumettez un fichier</p>
+			<p class="text-center fs-5">Connectez vous avec des rôles plus élevés pour traiter la demande:</p>
+			<ul>
+				<li>L'utilisateur soumet sa demande et suit les étapes du traitement</li>
+				<li>Le conseiller valide la demande de l'utilisateur et transmet les factures à l'agent de validation</li>
+				<li>L'agent de validation approuve ou réfute le remboursement</li>
+			</ul>
+		</section>
+
+		<section class="w-100 mx-auto my-3 bg-primary p-3 rounded-3 d-flex flex-column align-items-center">
+			<h2 class="fs-4 fw-bold">Inscrivez vous et commencez dès maintenant!</h2>
+			<div>
+				<button class="btn btn-light btn-lg rounded-3 m-3">Je m'inscris</button>
+				<button class="btn btn-light btn-lg rounded-3 m-3">Je me connecte</button>
+			</div>
+		</section>
+		<section>
+			<h2>Quelques liens</h2>
+			<ul>
+				<li><a href="https://github.com/FlorentGarcia369963/social_secu">Le code est accessible sur le repo github</a></li>
+				<li><a href="https://github.com/FlorentGarcia369963">D'autres petits projets son exposés sur mon profil github</a></li>
+			</ul>
+		</section>
 	</div>
 {% endblock %}

@@ -10,7 +10,7 @@ use App\Entity\User;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/dashboard', name: 'app_dashboard')]
+    #[Route('/tableau-de-bord', name: 'app_dashboard')]
     public function index(RequestsRepository $requestsRepository): Response
     {
         /** @var User $user */
@@ -22,20 +22,18 @@ class DashboardController extends AbstractController
         
         if($this->isGranted('ROLE_USER') && count($userRole) === 1){
             $userRequests = $user->getRequests();
-            return $this->render('dashboard/user.html.twig', [
+            return $this->render('dashboard/index.html.twig', [
                 'userRequests' => $userRequests
             ]);
         }elseif($this->isGranted('ROLE_ADVISOR')){
-            $usersRequests = $requestsRepository->findAllRequestsWithUser('ROLE_ADVISOR');
-            dump($usersRequests);
-            return $this->render('dashboard/advisor.html.twig', [
-                'usersRequests' => $usersRequests
+            $userRequests = $requestsRepository->findAllRequestsWithUser('ROLE_ADVISOR');
+            return $this->render('dashboard/index.html.twig', [
+                'userRequests' => $userRequests
             ]);
         }elseif($this->isGranted('ROLE_VALIDATOR')){
-            $usersRequests = $requestsRepository->findAllRequestsWithUser('ROLE_VALIDATOR');
-            dump($usersRequests);
-            return $this->render('dashboard/validator.html.twig', [
-                'usersRequests' => $usersRequests
+            $userRequests = $requestsRepository->findAllRequestsWithUser('ROLE_VALIDATOR');
+            return $this->render('dashboard/index.html.twig', [
+                'userRequests' => $userRequests
             ]);
         }
     }

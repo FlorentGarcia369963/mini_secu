@@ -18,18 +18,25 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h1>S'inscrire</h1>
-
-		{{ form_start(registration_form) }}
-		{{ form_row(registration_form.lastName) }}
-		{{ form_row(registration_form.firstName) }}
-		{{ form_row(registration_form.socialNumber) }}
-		{{ form_row(registration_form.email) }}
-		{{ form_row(registration_form.password) }}
-		{{ form_row(registration_form.confirmPassword) }}
+		<h1 class="w-100 text-center mt-2 mb-5 font-weight-normal">Inscription</h1>
 
 
-		<button type="submit">S'inscrire</button>
+		{{ form_start(registration_form, {'attr': {'class' : 'needs-validation w-50 m-auto'}})
+								}}
+		{{ form_row(registration_form.lastName, {
+				'attr': {'class' : 'form-control mb-3 m-auto w-100', 'autofocus': 'autofocus'}, 'label_attr': {'class': 'form-label w-100'}}) }}
+		{{ form_row(registration_form.firstName, {
+				'attr': {'class' : 'form-control mb-3 m-auto w-100'}, 'label_attr': {'class': 'form-label w-100'}}) }}
+		{{ form_row(registration_form.socialNumber, {
+				'attr': {'class' : 'form-control mb-3 m-auto w-100'}, 'label_attr': {'class': 'form-label w-100'}}) }}
+		{{ form_row(registration_form.email, {
+				'attr': {'class' : 'form-control mb-3 m-auto w-100'}, 'label_attr': {'class': 'form-label w-100'}}) }}
+		{{ form_row(registration_form.password, {
+				'attr': {'class' : 'form-control mb-3 m-auto w-100'}, 'label_attr': {'class': 'form-label w-100'}}) }}
+		{{ form_row(registration_form.confirmPassword, {
+				'attr': {'class' : 'form-control mb-3 m-auto w-100'}, 'label_attr': {'class': 'form-label w-100'}}) }}
+		<button type="submit" class="btn btn-lg -primary m-auto my-2">S'inscrire</button>
 		{{ form_end(registration_form) }}
+
 	</div>
 {% endblock %}
