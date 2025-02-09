@@ -14,7 +14,9 @@ WORKDIR /var/www/html
 
 COPY . .
 # Pour le mode prod
-RUN composer install --no-dev --optimize-autoloader
+# RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-scripts && composer run-script auto-scripts
+
 # Pour le mode dev
 # RUN composer install
 
