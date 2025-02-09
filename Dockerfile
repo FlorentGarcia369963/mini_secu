@@ -4,6 +4,9 @@ RUN apt-get update && apt-get install -y \
     libpq-dev unzip \
     && docker-php-ext-install pdo pdo_pgsql
 
+RUN wget https://get.symfony.com/cli/installer -O - | bash \
+&& mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
