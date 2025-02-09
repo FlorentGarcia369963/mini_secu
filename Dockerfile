@@ -1,7 +1,7 @@
 FROM php:8.1-fpm
 
 RUN apt-get update && apt-get install -y \
-    libpq-dev unzip \
+    libpq-dev unzip wget \
     && docker-php-ext-install pdo pdo_pgsql
 
 RUN wget https://get.symfony.com/cli/installer -O - | bash \
