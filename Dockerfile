@@ -14,9 +14,9 @@ WORKDIR /var/www/html
 
 COPY . .
 # Pour le mode prod
-# RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader
 # Pour le mode dev
-RUN composer install
+# RUN composer install
 
 
 RUN chown -R www-data:www-data /var/www/html \
