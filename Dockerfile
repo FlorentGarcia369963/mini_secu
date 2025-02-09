@@ -1,11 +1,13 @@
 FROM php:8.1-fpm
 
 RUN apt-get update && apt-get install -y \
-    libpq-dev unzip wget \
+    libpq-dev unzip wget curl \
     && docker-php-ext-install pdo pdo_pgsql
 
-RUN wget https://get.symfony.com/cli/installer -O - | bash \
+RUN curl -sS https://get.symfony.com/cli/installer -o symfony-installer.sh \
+&& bash symfony-installer.sh \
 && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
