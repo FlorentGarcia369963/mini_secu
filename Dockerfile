@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN curl -sS https://get.symfony.com/cli/installer -o symfony-installer.sh \
 && bash symfony-installer.sh \
-&& mv /root/.symfony*/bin/symfony /usr/local/bin/symfony \
-&& ls -l /usr/local/bin/symfony
+&& mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
