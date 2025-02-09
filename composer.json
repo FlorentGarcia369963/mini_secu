@@ -73,6 +73,11 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony cache:clear",
+            "assets:install %PUBLIC_DIR%": "symfony assets:install %PUBLIC_DIR%",
+            "importmap:install": "symfony importmap:install"
+        },
         "post-install-cmd": [
             "@auto-scripts"
         ],
