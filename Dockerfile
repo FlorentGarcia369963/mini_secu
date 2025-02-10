@@ -29,7 +29,7 @@ RUN sed -i 's/user = www-data/user = symfony/g' /usr/local/etc/php-fpm.d/www.con
 RUN sed -i 's/group = www-data/group = symfony/g' /usr/local/etc/php-fpm.d/www.conf
 
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/var
+    && chmod -R 755 /var/www/html
 
 EXPOSE 9000
 
