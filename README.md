@@ -14,6 +14,7 @@ Au programme, inscription et connexion, de la gestion d'affichage en fonction de
 **Réalisé avec symfony 6.4**, moteur de template **Twig**, un peu de **javascript**, et **bootstrap** pour le front-end.
 
 Commandes pour mettre le projet en route avec les utilisateurs par défaut:
+- "make create_db"
 - "docker compose up -d --build"
 - "make fixtures"
 
